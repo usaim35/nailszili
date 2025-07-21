@@ -71,7 +71,25 @@ cartItemsList.addEventListener("click", e => {
 });
 
 placeOrderBtn.addEventListener("click", () => {
-  alert("Thank you! Take a screenshot and send it to WhatsApp: 0324 2788466");
+  if (cart.length === 0) return;
+
+  const total = cart.reduce((sum, item) => sum + item.price, 0);
+  const items = cart.map(item => item.name).join(", ");
+
+  const method = confirm(`Your order for: ${items}\nTotal: ₨${total}\n\nClick OK for Online Transfer, Cancel for Cash on Delivery`);
+
+  let message = `🛍️ Order Summary:\n\nItems: ${items}\nTotal: ₨${total}\n`;
+
+  if (method) {
+    message += `\n💳 *Online Transfer Details:*\nSend to: 03242788466\nAccount: Jahangir (JazzCash)\n`;
+  } else {
+    message += `\n💵 Payment Method: Cash on Delivery`;
+  }
+
+  message += `\n\n📲 Please take a screenshot and send to WhatsApp: 03242788466`;
+
+  alert(message);
+
   cart = [];
   updateCart();
 });
