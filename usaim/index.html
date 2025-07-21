@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nails Zili - Painted Nails By Anzila Sajid</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Header (Fixed) -->
+  <header>
+    <h1>Painted Nails By Anzila Sajid</h1>
+    <a href="#"><img src="logo.jpg" alt="Nails Zili Logo" class="logo" /></a>
+  </header>
+
+  <!-- Spacer so slider doesn't go under fixed header -->
+  <div class="spacer"></div>
+
+  <!-- Hero / Slider -->
+  <section id="hero" class="container">
+    <div class="carousel-slide active"><img src="1.jpg" alt="Design 1"></div>
+    <div class="carousel-slide"><img src="slider.jpg" alt="Design 2"></div>
+    <div class="carousel-slide"><img src="2.jpg" alt="Design 3"></div>
+    <div class="carousel-slide"><img src="12.jpg" alt="Design 4"></div>
+    <div class="carousel-slide"><img src="13.jpg" alt="Design 5"></div>
+    <div class="carousel-nav"></div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container">
+    <section id="products"></section>
+
+    <section id="cart">
+      <h2>🛒 Your Cart</h2>
+      <ul id="cart-items"></ul>
+      <p><strong>Total: ₨<span id="cart-total">0</span></strong></p>
+      <button id="place-order" disabled>Place Order</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>Delivery across Pakistan 🇵🇰</p>
+    <p>Order or WhatsApp us at: <a href="https://wa.me/923242788466" target="_blank">+92 324 2788466</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
