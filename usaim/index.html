@@ -1,51 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>Nails Zili - Painted Nails By Anzila Sajid</title>
-  <link rel="stylesheet" href="style.css" />
+
+  <!-- Bootstrap CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <!-- Header -->
-  <header>
-    <h1>Painted Nails By Nailzilli</h1>
-    <a href="#"><img src="logo.jpg" alt="Nails Zili Logo" class="logo" /></a>
+  <header class="navbar navbar-dark bg-mint sticky-top px-4 d-flex justify-content-between align-items-center">
+    <h1 class="navbar-brand mb-0 fs-5">Painted Nails By Nailzilli</h1>
+    <img src="logo.jpg" alt="Logo" class="logo" />
   </header>
 
-  <!-- Spacer -->
-  <div class="spacer"></div>
+  <!-- Carousel -->
+  <div id="mainCarousel" class="carousel slide mt-3 container" data-bs-ride="carousel" data-bs-interval="4000">
+    <div class="carousel-inner rounded shadow-sm">
+      <div class="carousel-item active">
+        <img src="1.jpg" class="d-block w-100" alt="Slide 1" />
+      </div>
+      <div class="carousel-item">
+        <img src="7.jpg" class="d-block w-100" alt="Slide 2" />
+      </div>
+      <div class="carousel-item">
+        <img src="8.jpg" class="d-block w-100" alt="Slide 3" />
+      </div>
+    </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#mainCarousel"
+      data-bs-slide="prev"
+      aria-label="Previous slide"
+    >
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#mainCarousel"
+      data-bs-slide="next"
+      aria-label="Next slide"
+    >
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
 
-  <!-- Slider -->
-  <section id="hero" class="container">
-    <div class="carousel-slide active"><img src="1.jpg" alt="Design 1"></div>
-    <div class="carousel-slide"><img src="slider.jpg" alt="Design 2"></div>
-    <div class="carousel-slide"><img src="2.jpg" alt="Design 3"></div>
-    <div class="carousel-slide"><img src="12.jpg" alt="Design 4"></div>
-    <div class="carousel-slide"><img src="13.jpg" alt="Design 5"></div>
-    <div class="carousel-nav"></div>
-  </section>
+  <!-- Products Section -->
+  <main class="container my-4">
+    <section id="products" class="row g-3"></section>
 
-  <!-- Products & Cart -->
-  <main class="container">
-    <section id="products"></section>
-
-    <section id="cart">
-      <h2>🛒 Your Cart</h2>
-      <ul id="cart-items"></ul>
-      <p><strong>Total: ₨<span id="cart-total">0</span></strong></p>
-      <button id="place-order" disabled>Place Order</button>
+    <!-- Cart -->
+    <section
+      id="cart"
+      class="bg-mint-light p-3 rounded shadow-sm mt-4"
+      style="max-width: 480px; margin: 30px auto 60px"
+    >
+      <h2 class="fs-5 mb-3">🛒 Your Cart</h2>
+      <ul id="cart-items" class="list-group mb-3"></ul>
+      <p class="fw-bold fs-5">
+        Total: ₨<span id="cart-total">0</span>
+      </p>
+      <button id="place-order" class="btn btn-mint w-100 py-3 fs-5" disabled>
+        Place Order
+      </button>
     </section>
   </main>
 
   <!-- Footer -->
-  <footer>
-    <p>Delivery across Pakistan 🇵🇰</p>
-    <p>Order or WhatsApp us at: <a href="https://wa.me/923242788466" target="_blank">+92 324 2788466</a></p>
+  <footer class="bg-mint text-white text-center py-3 fixed-bottom">
+    <p class="mb-0 small">Delivery across Pakistan 🇵🇰</p>
+    <p class="mb-0 small">
+      WhatsApp your screenshot at:
+      <a href="https://wa.me/923242788466" target="_blank" class="text-white fw-bold"
+        >+92 324 2788466</a
+      >
+    </p>
   </footer>
 
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
