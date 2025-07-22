@@ -1,20 +1,25 @@
-const products = [
-  { name: "Swirl Pink Design", price: 1500, img: "1.jpg" },
-  { name: "Rainbow Shine", price: 1800, img: "2.jpg" },
-  { name: "Golden Touch", price: 1700, img: "3.jpg" },
-  { name: "Minty Fresh", price: 2000, img: "4.jpg" },
-  { name: "Lavender Love", price: 1600, img: "5.jpg" },
-  { name: "Sunset Orange", price: 1400, img: "6.jpg" },
-  { name: "Classy Nude", price: 1300, img: "7.jpg" },
-  { name: "Purple Dream", price: 1900, img: "8.jpg" },
-  { name: "French White", price: 1700, img: "9.jpg" },
-  { name: "Black Gloss", price: 1200, img: "10.jpg" },
-  { name: "Candy Tips", price: 1600, img: "11.jpg" },
-  { name: "Rose Sparkle", price: 2000, img: "12.jpg" },
-  { name: "Ocean Blue", price: 1500, img: "13.jpg" },
-  { name: "Peach Gloss", price: 1400, img: "14.jpg" },
-  { name: "Chrome Silver", price: 1750, img: "1.jpg" }
-];
+const products = [];
+for (let i = 1; i <= 14; i++) {
+  products.push({
+    name: `Design ${i}`,
+    price: 1400 + (i * 50),
+    img: `${i}.jpg`
+  });
+}
+
+// Product 15 uses image 7.jpg instead of 15.jpg
+products.push({
+  name: "Design 15",
+  price: 1400 + (15 * 50),
+  img: "7.jpg"
+});
+
+// Product 16 uses image 1.jpg
+products.push({
+  name: "Design 16",
+  price: 1400 + (16 * 50),
+  img: "1.jpg"
+});
 
 const productsContainer = document.getElementById("products");
 const cartItemsList = document.getElementById("cart-items");
@@ -24,17 +29,20 @@ const placeOrderBtn = document.getElementById("place-order");
 let cart = [];
 
 function displayProducts() {
-  productsContainer.innerHTML = "";
+  productsContainer.innerHTML = "";  // Clear previous products
+
   products.forEach((product, index) => {
-    const div = document.createElement("div");
-    div.classList.add("product");
-    div.innerHTML = `
-      <img src="${product.img}" alt="${product.name}">
-      <h3>${product.name}</h3>
-      <p>₨${product.price}</p>
-      <button class="add-to-cart" data-index="${index}">Add to Cart</button>
+    const col = document.createElement("div");
+    col.className = "col-12 col-sm-6 col-md-4 col-lg-3";
+    col.innerHTML = `
+      <div class="product shadow-sm rounded p-3">
+        <img src="${product.img}" alt="${product.name}" loading="lazy" class="img-fluid mb-2" />
+        <h3 class="fs-6">${product.name}</h3>
+        <p class="fw-bold">₨${product.price}</p>
+        <button class="btn btn-mint w-100 add-to-cart" data-index="${index}">Add to Cart</button>
+      </div>
     `;
-    productsContainer.appendChild(div);
+    productsContainer.appendChild(col);
   });
 }
 
@@ -44,9 +52,10 @@ function updateCart() {
   cart.forEach((item, idx) => {
     total += item.price;
     const li = document.createElement("li");
+    li.className = "list-group-item d-flex justify-content-between align-items-center";
     li.innerHTML = `
-      ${item.name} - ₨${item.price}
-      <button data-index="${idx}">Remove</button>
+      ${item.name} - ₨${item.price} 
+      <button class="btn btn-sm btn-danger" data-index="${idx}">Remove</button>
     `;
     cartItemsList.appendChild(li);
   });
@@ -54,7 +63,7 @@ function updateCart() {
   placeOrderBtn.disabled = cart.length === 0;
 }
 
-productsContainer.addEventListener("click", e => {
+productsContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("add-to-cart")) {
     const index = +e.target.dataset.index;
     cart.push(products[index]);
@@ -62,7 +71,7 @@ productsContainer.addEventListener("click", e => {
   }
 });
 
-cartItemsList.addEventListener("click", e => {
+cartItemsList.addEventListener("click", (e) => {
   if (e.target.tagName === "BUTTON") {
     const index = +e.target.dataset.index;
     cart.splice(index, 1);
@@ -71,57 +80,23 @@ cartItemsList.addEventListener("click", e => {
 });
 
 placeOrderBtn.addEventListener("click", () => {
-  if (cart.length === 0) return;
-
+  const orderList = cart.map(item => item.name).join(", ");
   const total = cart.reduce((sum, item) => sum + item.price, 0);
-  const items = cart.map(item => item.name).join(", ");
 
-  const method = confirm(`Your order for: ${items}\nTotal: ₨${total}\n\nClick OK for Online Transfer, Cancel for Cash on Delivery`);
+  const method = prompt(`Your order is: ${orderList}\nTotal: ₨${total}\n\nType "1" for Cash on Delivery or "2" for Online Transfer:`);
 
-  let message = `🛍️ Order Summary:\n\nItems: ${items}\nTotal: ₨${total}\n`;
-
-  if (method) {
-    message += `\n💳 *Online Transfer Details:*\nSend to: 03242788466\nAccount: Jahangir (JazzCash)\n`;
+  if (method === "1") {
+    alert(`✅ COD Order placed!\nTotal: ₨${total}\nOrder: ${orderList}\n\n📸 Take screenshot & send to WhatsApp: 0324 2788466`);
+  } else if (method === "2") {
+    alert(`✅ Online Order placed!\nTotal: ₨${total}\nOrder: ${orderList}\n\n📲 Send payment to: 0324 2788466 (JazzCash - Jahangir)\nThen WhatsApp screenshot.`);
   } else {
-    message += `\n💵 Payment Method: Cash on Delivery`;
+    alert("Order cancelled. Please try again.");
+    return;
   }
-
-  message += `\n\n📲 Please take a screenshot and send to WhatsApp: 03242788466`;
-
-  alert(message);
 
   cart = [];
   updateCart();
 });
 
-// ===== Slider =====
-const slides = document.querySelectorAll(".carousel-slide");
-const nav = document.querySelector(".carousel-nav");
-let currentSlide = 0;
-
-function createNavButtons() {
-  slides.forEach((_, i) => {
-    const btn = document.createElement("button");
-    if (i === 0) btn.classList.add("active");
-    btn.addEventListener("click", () => goToSlide(i));
-    nav.appendChild(btn);
-  });
-}
-
-function goToSlide(n) {
-  slides[currentSlide].classList.remove("active");
-  nav.children[currentSlide].classList.remove("active");
-  currentSlide = n;
-  slides[currentSlide].classList.add("active");
-  nav.children[currentSlide].classList.add("active");
-}
-
-function nextSlide() {
-  const next = (currentSlide + 1) % slides.length;
-  goToSlide(next);
-}
-
-createNavButtons();
-setInterval(nextSlide, 4000);
 displayProducts();
 updateCart();
